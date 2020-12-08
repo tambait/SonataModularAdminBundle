@@ -229,7 +229,7 @@ file that was distributed with this source code.
                         <aside class="sidebar">
                             <div class="sidebar-container">
                                 {% block logo %}
-                                    {% spaceless %}
+                                    {% apply spaceless %}
                                         <div class="sidebar-header">
                                             <div class="brand">
                                                 {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
@@ -242,7 +242,7 @@ file that was distributed with this source code.
                                                 {% endif %}
                                             </div>
                                         </div>
-                                    {% endspaceless %}
+                                    {% endapply %}
                                 {% endblock %}
                                 {% block sonata_side_nav %}
                                     {% block side_bar_before_nav %} {% endblock %}
@@ -320,7 +320,7 @@ file that was distributed with this source code.
 
                             {% block sonata_admin_content %}
                                 {% block notice %}
-                                    {% include '@SonataCore/FlashMessage/render.html.twig' %}
+                                    {% include ['@SonataCore/FlashMessage/render.html.twig', '@SonataTwig/FlashMessage/render.html.twig'] %}
                                 {% endblock notice %}
 
                                 {% if _preview is not empty %}
