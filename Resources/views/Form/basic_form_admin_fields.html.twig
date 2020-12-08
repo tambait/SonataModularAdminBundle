@@ -1,7 +1,7 @@
 {% extends '@SonataAdmin/Form/form_admin_fields.html.twig' %}
 
 {% block sonata_type_native_collection_widget_row %}
-    {% spaceless %}
+    {% apply spaceless %}
         <div class="sonata-collection-row">
             {% if allow_delete %}
             <div class="row">
@@ -18,5 +18,5 @@
             </div>
             {% endif %}
         </div>
-    {% endspaceless %}
+    {% endapply %}
 {% endblock sonata_type_native_collection_widget_row %}
