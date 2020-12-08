@@ -12,8 +12,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sherlockode_sonata_modular');
+        $treeBuilder = new TreeBuilder('sherlockode_sonata_modular');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
