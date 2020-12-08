@@ -29,7 +29,7 @@ file that was distributed with this source code.
     #}
 
     {% if admin.isChild and admin.parent.subject %}
-        {{ "title_edit"|trans({'%name%': admin.parent.toString(admin.parent.subject)|truncate(15) }, 'SonataAdminBundle') }}
+        {{ "title_edit"|trans({'%name%': admin.parent.toString(admin.parent.subject)|sonata_truncate(15) }, 'SonataAdminBundle') }}
     {% endif %}
 {% endblock %}
 
@@ -78,7 +78,7 @@ file that was distributed with this source code.
                                                     {% set sort_by              = current ? admin.datagrid.values._sort_order : field_description.options._sort_order %}
                                                 {% endif %}
 
-                                                {% spaceless %}
+                                                {% apply spaceless %}
                                                     <th class="sonata-ba-list-field-header-{{ field_description.type}} {% if sortable %} sonata-ba-list-field-header-order-{{ sort_by|lower }} {{ sort_active_class }}{% endif %}{% if field_description.options.header_class is defined %} {{ field_description.options.header_class }}{% endif %}"{% if field_description.options.header_style is defined %} style="{{ field_description.options.header_style }}"{% endif %}>
                                                         {% if sortable %}<a href="{{ admin.generateUrl('list', sort_parameters) }}">{% endif %}
                                                             {% if field_description.getOption('label_icon') %}
@@ -87,7 +87,7 @@ file that was distributed with this source code.
                                                             {{ field_description.label|trans({}, field_description.translationDomain) }}
                                                             {% if sortable %}</a>{% endif %}
                                                     </th>
-                                                {% endspaceless %}
+                                                {% endapply %}
                                             {% endif %}
                                         {% endfor %}
                                     </tr>
@@ -238,7 +238,8 @@ file that was distributed with this source code.
         <div class="action dropdown inline">
             <button class="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button" id="filters" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'link_filters'|trans({}, 'SonataAdminBundle') }}</button>
             <div class="dropdown-menu" aria-labelledby="filters">
-                {% for filter in admin.datagrid.filters if (filter.options['show_filter'] is same as(true) or filter.options['show_filter'] is null) %}
+                    {% for filter in admin.datagrid.filters|filter(filter => filter.options['show_filter'] is not same as (false)) %}
+
                     {% set filterActive = ((filter.isActive() or filter.options['show_filter']) and not admin.isDefaultFilter(filter.formName)) %}
                     <a href="#" class="sonata-toggle-filter sonata-ba-action dropdown-item" filter-target="filter-{{ admin.uniqid }}-{{ filter.name }}" filter-container="filter-container-{{ admin.uniqid() }}">
                         <i class="fa {{ (filter.isActive() or filter.options['show_filter']) ? 'fa-check-square-o' : 'fa-square-o' }}"></i>{{ filter.label|trans({}, filter.translationDomain ?: admin.translationDomain) }}
